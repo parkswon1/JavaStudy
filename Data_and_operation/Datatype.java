@@ -1,8 +1,6 @@
 public class Datatype{
 	public static void main(String[] args) {
-        String backslashString = "This is a backslash: \\";
-
-        // 출력
-        System.out.println(backslashString);
+        System.out.println("Hello World".length()); // 11
+        System.out.println("Hello, [[[name]]] ... bye. ".replace("[[[name]]]", "duru"));
 	}
 }
