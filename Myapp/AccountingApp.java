@@ -1,7 +1,7 @@
 
 public class AccountingApp {
 	public static void main(String[] args) {
-		double supplyCost = 10000.0;
+		double supplyCost = Double.parseDouble(args[0]);
 		double VAT = supplyCost/10;
 		double Total = supplyCost + VAT;
 		double Expense = supplyCost*0.3;
