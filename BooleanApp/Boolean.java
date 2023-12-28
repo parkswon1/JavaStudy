@@ -1,4 +1,3 @@
-
 public class Boolean {
 	public static void main(String[] args) {
 		System.out.println("One");
@@ -11,5 +10,6 @@ public class Boolean {
 		
 		System.out.println(foo.contains("world"));
 		System.out.println(foo.contains("egoing"));
+
 	}
 }
