@@ -10,6 +10,5 @@ public class Boolean {
 		
 		System.out.println(foo.contains("world"));
 		System.out.println(foo.contains("egoing"));
-
 	}
 }
