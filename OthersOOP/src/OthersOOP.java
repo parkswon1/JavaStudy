@@ -1,17 +1,17 @@
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
-
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static java.lang.System.*;
+
 public class OthersOOP {
-    private static final Logger logger = LoggerFactory.getLogger(OthersOOP.class);
+
     public static void main(String[] args) {
         // class : System, Math, FileWriter
         // instance : f1, f2
 
-        logger.println(Math.PI);
-        logger.println(Math.floor(1.8));
-        logger.println(Math.ceil(1.8));
+        out.println(Math.PI);
+        out.println(Math.floor(1.8));
+        out.println(Math.ceil(1.8));
 
         try (FileWriter f1 = new FileWriter("data.txt")) {
             f1.write("Hello");
