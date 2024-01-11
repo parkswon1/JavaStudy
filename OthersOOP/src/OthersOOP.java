@@ -1,7 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
 public class OthersOOP {
 
