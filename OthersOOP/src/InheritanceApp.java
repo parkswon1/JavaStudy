@@ -6,10 +6,9 @@ class Cal {
     }
 }
 class Cal3 extends Cal{
-    @Override
-    public int sum(int v1, int v2) {
-        System.out.println("Cal3!!!");
-        return v1 + v2;
+
+    public int mix(int v1, int v2, int v3) {
+        return sum(v1,v2) * minus(v3,v2);
     }
 
     public int minus(int v1, int v2) {
@@ -25,5 +24,6 @@ public class InheritanceApp {
         Cal3 c3 = new Cal3();
         System.out.println(c3.sum(2, 1));
         System.out.println(c3.minus(2, 1));
+        System.out.println(c3.mix(2,1,3));
     }
 }
