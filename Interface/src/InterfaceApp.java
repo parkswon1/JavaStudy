@@ -20,10 +20,10 @@ class RealCal implements Calculable, Printable {
 public class InterfaceApp {
 
     public static void main(String[] args) {
-        RealCal c = new RealCal();
+        Calculable c = new RealCal();
+        Printable d = new RealCal();
         System.out.println(c.sum(2, 1));
-        c.print();
+        d.print();
         System.out.println(c.PI);
     }
-
 }
