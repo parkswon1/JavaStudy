@@ -1,21 +1,19 @@
 public class Car {
-    String company =" 현대자동차";
-    String model;
-    String color;
-    int maxSpeed;
+    private int count;
 
-    Car(){
-
+    public Car() {
+        this.count = 0;
     }
 
-    Car(String model, String color){
-        this(model,color,1000);
+    public void increment() {
+        this.count++; // "this"를 사용하여 현재 객체의 변수에 접근
     }
 
-    Car(String model, String color, int maxSpeed){
-        model = model + model;
-        this.model =model;
-        this.color =color;
-        this.maxSpeed = maxSpeed;
+    public void reset() {
+        this.count = 0; // "this"를 사용하여 현재 객체의 변수에 접근
+    }
+
+    public int count(){
+        return this.count;
     }
 }
