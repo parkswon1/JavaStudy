@@ -5,5 +5,6 @@ public class Main {
         smartPhone.turnOn();
         smartPhone.internetSearch();
         smartPhone.turnOff();
+        System.out.println(smartPhone.owner);
     }
 }
