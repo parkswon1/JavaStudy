@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        List list = new ArrayList();
-        list.add("hello");
-        System.out.println(list.getClass());
+        SmartPhone smartPhone = new SmartPhone("홍길동");
+
+        smartPhone.turnOn();
+        smartPhone.internetSearch();
+        smartPhone.turnOff();
     }
 }
