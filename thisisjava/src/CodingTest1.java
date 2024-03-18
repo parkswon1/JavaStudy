@@ -1,18 +1,14 @@
-public class Main {
-    public static void main(String[] args) {
-        solution("AAAIA");
-    }
 
-    static int idx = 0;
-    static int answer = -1;
+public class CodingTest1 {
+    int idx = 0;
+    int answer = -1;
 
-    public static int solution(String word) {
+    public int solution(String word) {
         dfs(word, "");
-        System.out.println(answer);
         return answer;
     }
 
-    public static void dfs(String word, String text) {
+    public void dfs(String word, String text) {
         if(answer > 0) {
             return;
         }
@@ -30,4 +26,5 @@ public class Main {
         dfs(word, text+"O");
         dfs(word, text+"U");
     }
+
 }
