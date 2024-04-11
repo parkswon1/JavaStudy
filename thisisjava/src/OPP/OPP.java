@@ -1,4 +1,4 @@
-package thisisjava.src;
+package thisisjava.src.OPP;
 
 import java.util.Scanner;
 
@@ -85,7 +85,7 @@ public class OPP {
     }
 
     public static class CashPayment implements Payment {
-        
+
         public void processPayment(int price){
             System.out.println(price + "원 현금 결제를 처리합니다.");
         }
