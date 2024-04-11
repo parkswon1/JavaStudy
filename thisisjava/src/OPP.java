@@ -47,16 +47,16 @@ public class OPP {
 
     public static class PizzaOrder extends Order{
 
-        @Override
+
         void prepareFood() {
             System.out.println("피자를 굽는 중입니다.");
         }
 
-        @Override
+
         void serveFood() {
             System.out.println("치즈가 잘늘어나는 피자가 나왔습니다.");
         }
-        @Override
+
         int priceReturn(){
             return 20000;
         }
@@ -64,31 +64,28 @@ public class OPP {
 
     public static class BurgerOrder extends Order{
 
-        @Override
         void prepareFood() {
             System.out.println("햄버거의 층을 쌓는 중입니다.");
         }
 
-        @Override
         void serveFood() {
             System.out.println("햄버거에 꽂힌 깃발이 휘날리며 나왔습니다.");
         }
-        @Override
+
         int priceReturn(){
             return 12000;
         }
     }
 
     public static class CreditPayment implements Payment {
-        @Override
+
         public void processPayment(int price){
             System.out.println(price + "원 신용카드 결제를 처리합니다.");
         }
     }
 
     public static class CashPayment implements Payment {
-
-        @Override
+        
         public void processPayment(int price){
             System.out.println(price + "원 현금 결제를 처리합니다.");
         }
