@@ -31,3 +31,4 @@ public class TimeExam2 {
 
         scanner.close();
     }
+}
