@@ -8,16 +8,16 @@ public class ChatServer {
     private static final int PORT = 12345;
     private static Set<String> nicknames = new HashSet<>();
     private static Map<Integer, List<ClientHandler>> rooms = new HashMap<>();
-    private static int nextRoomNumber = 2;
+    private static int nextRoomNumber = 1;
     private static Map<String, PrintWriter> clientWriters = new HashMap<>();
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("Server is running on port " + PORT);
+            System.out.println("서버가 " + PORT + "에서 실행 중입니다.");
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("New client connected: " + clientSocket);
+                System.out.println("새로운 클라이언트가 입장했습니다.: " + clientSocket);
 
                 ClientHandler clientHandler = new ClientHandler(clientSocket);
                 new Thread(clientHandler).start();
@@ -56,13 +56,12 @@ public class ChatServer {
                             clientWriters.put(nickname, out);
                             break;
                         } else {
-                            out.println("Nickname already exists. Please choose another one:");
+                            out.println("이미 존재하는 닉네임 입니다. 다른 닉네임을 선택해주세요.");
                         }
                     }
                 }
 
-                System.out.println(nickname + " connected.");
-                broadcastToRoom("User " + nickname + " connected.", roomNumber);
+                System.out.println(nickname + "으로 로그인했습니다..");
 
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
@@ -78,7 +77,7 @@ public class ChatServer {
                 if (nickname != null) {
                     nicknames.remove(nickname);
                     clientWriters.remove(nickname);
-                    broadcastToRoom("User " + nickname + " disconnected.", roomNumber);
+                    broadcastToRoom(nickname + " 이 방에서 나가셨습니다.", roomNumber);
                 }
                 try {
                     socket.close();
@@ -109,7 +108,21 @@ public class ChatServer {
                 listRoomUsers();
             } else if (command.startsWith("/whisper")) {
                 whisper(command);
+            } else if (command.startsWith("/help")) {
+                displayHelp();
             }
+        }
+
+        private void displayHelp() {
+            out.println("사용 가능한 명령어:");
+            out.println("/create - 새로운 방을 생성합니다.");
+            out.println("/list - 생성된 방 목록을 확인합니다.");
+            out.println("/join [방 번호] - 특정 방에 참여합니다.");
+            out.println("/exit - 현재 방을 나갑니다.");
+            out.println("/bye - 채팅을 종료합니다.");
+            out.println("/users - 현재 서버에 접속한 모든 사용자의 목록을 확인합니다.");
+            out.println("/roomusers - 현재 방에 속한 사용자들의 목록을 확인합니다.");
+            out.println("/whisper [이름] [메세지] - 특정 사용자에게 개인 메시지를 보냅니다.");
         }
 
         private void createRoom() {
@@ -117,16 +130,16 @@ public class ChatServer {
                 List<ClientHandler> clients = new ArrayList<>();
                 clients.add(this);
                 rooms.put(nextRoomNumber, clients);
-                out.println("Room " + nextRoomNumber + " created.");
+                out.println(nextRoomNumber + "번 방을 생성했습니다.");
                 roomNumber = nextRoomNumber;
                 nextRoomNumber++;
-                broadcastToRoom("User " + nickname + " created the room.", roomNumber);
+                broadcastToRoom(nickname + "이(가) 방을 생성했습니다.", roomNumber);
             }
         }
 
         private void listRooms() {
             synchronized (rooms) {
-                out.println("Room List:");
+                out.println("방 목록:");
                 for (int room : rooms.keySet()) {
                     out.println(room);
                 }
@@ -136,33 +149,25 @@ public class ChatServer {
         private void joinRoom(String command) {
             String[] parts = command.split(" ");
             if (parts.length != 2) {
-                out.println("Invalid command. Usage: /join [room number]");
+                out.println("잘못된 커멘드 입니다. 다음과 같이 시도해 보십시오: /join [방 번호]");
                 return;
             }
             int requestedRoomNumber = Integer.parseInt(parts[1]);
             synchronized (rooms) {
                 if (!rooms.containsKey(requestedRoomNumber)) {
-                    out.println("Room " + requestedRoomNumber + " does not exist.");
+                    out.println(requestedRoomNumber + "은(는) 존재하지 않는 방 번호 입니다.");
                     return;
-                }
-                if (roomNumber == requestedRoomNumber) {
-                    out.println("You are already in room " + requestedRoomNumber + ".");
-                    return;
-                }
-                if (roomNumber != -1) {
-                    broadcastToRoom("User " + nickname + " left the room.", roomNumber);
-                    rooms.get(roomNumber).remove(this);
                 }
                 rooms.get(requestedRoomNumber).add(this);
                 roomNumber = requestedRoomNumber;
-                broadcastToRoom("User " + nickname + " joined the room.", roomNumber);
+                broadcastToRoom(nickname + "님이 방에 들어왔습니다.", roomNumber);
             }
         }
 
         private void exitRoom() {
             synchronized (rooms) {
                 if (roomNumber != -1) {
-                    broadcastToRoom("User " + nickname + " left the room.", roomNumber);
+                    broadcastToRoom(nickname + "님이 방을 나갔습니다.", roomNumber);
                     rooms.get(roomNumber).remove(this);
                     roomNumber = -1;
                 }
@@ -171,7 +176,7 @@ public class ChatServer {
 
         private void listUsers() {
             synchronized (nicknames) {
-                out.println("Current users:");
+                out.println("서버 접속자:");
                 for (String user : nicknames) {
                     out.println(user);
                 }
@@ -181,12 +186,12 @@ public class ChatServer {
         private void listRoomUsers() {
             synchronized (rooms) {
                 if (roomNumber != -1) {
-                    out.println("Users in the room:");
+                    out.println("방 접속자:");
                     for (ClientHandler client : rooms.get(roomNumber)) {
                         out.println(client.nickname);
                     }
                 } else {
-                    out.println("You are not in a room.");
+                    out.println("당신은 방에 있지 않습니다.");
                 }
             }
         }
@@ -194,17 +199,17 @@ public class ChatServer {
         private void whisper(String command) {
             String[] parts = command.split(" ", 3);
             if (parts.length != 3) {
-                out.println("Invalid command. Usage: /whisper [nickname] [message]");
+                out.println("잘못된 커멘드 입니다. 다음과 같이 시도해 보십시오: /whisper [이름] [메세지]");
                 return;
             }
             String recipient = parts[1];
             String message = parts[2];
             PrintWriter recipientWriter = clientWriters.get(recipient);
             if (recipientWriter != null) {
-                recipientWriter.println("[Whisper from " + nickname + "]: " + message);
-                out.println("[Whisper to " + recipient + "]: " + message);
+                recipientWriter.println("[" + nickname + "]: " + message);
+                out.println("[" + recipient + "]: " + message);
             } else {
-                out.println("User " + recipient + " not found.");
+                out.println(recipient + "이 닉네임이 없습니다..");
             }
         }
 
@@ -215,7 +220,7 @@ public class ChatServer {
                         client.out.println(message);
                     }
                 } else {
-                    out.println("You are not in a room.");
+                    out.println("방에 소속하지 않았습니다.");
                 }
             }
         }
