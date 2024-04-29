@@ -2,14 +2,30 @@ package thisisjava.src.ChatServerMini.Server;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ChatServer {
-    private static final int PORT = 12345;
+    private static final int PORT = 12346;
     private static Set<String> nicknames = new HashSet<>();
     private static Map<Integer, List<ClientHandler>> rooms = new HashMap<>();
     private static int nextRoomNumber = 1;
     private static Map<String, PrintWriter> clientWriters = new HashMap<>();
+    private static final Map<String, String> AI_RESPONSES;
+
+    static {
+        Map<String, String> tempMap = new HashMap<>();
+        tempMap.put("날씨", getCurrentDate() + "은 맑은 날씨입니다.");
+        tempMap.put("오늘 날씨", "오늘은 맑은 날씨입니다.");
+        AI_RESPONSES = Collections.unmodifiableMap(tempMap);
+    }
+
+    private static String getCurrentDate() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+        return currentDate.format(formatter);
+    }
 
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
@@ -110,6 +126,9 @@ public class ChatServer {
                 whisper(command);
             } else if (command.startsWith("/help")) {
                 displayHelp();
+            } else if (command.startsWith("/ai")) {
+                String query = command.substring(4).trim();
+                handleAIResponse(query);
             }
         }
 
@@ -232,6 +251,11 @@ public class ChatServer {
                     out.println("방에 소속하지 않았습니다.");
                 }
             }
+        }
+
+        private void handleAIResponse(String message) {
+            String response = AI_RESPONSES.getOrDefault(message, "죄송해요, 이해하지 못했어요.");
+            out.println(response);
         }
     }
 }
