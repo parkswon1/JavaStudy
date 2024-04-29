@@ -154,8 +154,17 @@ public class ChatServer {
             }
             int requestedRoomNumber = Integer.parseInt(parts[1]);
             synchronized (rooms) {
+
                 if (!rooms.containsKey(requestedRoomNumber)) {
                     out.println(requestedRoomNumber + "은(는) 존재하지 않는 방 번호 입니다.");
+                    return;
+                }
+                if (roomNumber == requestedRoomNumber) {
+                    out.println("이미 해당 방에 속해 있습니다.");
+                    return;
+                }
+                if (roomNumber != -1) {
+                    out.println("이미 다른 방에 속해 있습니다. 먼저 그 방에서 나가십시오.");
                     return;
                 }
                 rooms.get(requestedRoomNumber).add(this);
