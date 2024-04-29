@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ChatClient {
     public static void main(String[] args) {
         String hostName = "localhost"; // 서버가 실행 중인 호스트의 이름 또는 IP 주소
-        int portNumber = 12346; // 서버와 동일한 포트 번호 사용
+        int portNumber = 12347; // 서버와 동일한 포트 번호 사용
 
         Socket socket = null;
         PrintWriter out = null;

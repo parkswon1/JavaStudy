@@ -7,18 +7,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ChatServer {
-    private static final int PORT = 12346;
+    private static final int PORT = 12347;
     private static Set<String> nicknames = new HashSet<>();
     private static Map<Integer, List<ClientHandler>> rooms = new HashMap<>();
     private static int nextRoomNumber = 1;
     private static Map<String, PrintWriter> clientWriters = new HashMap<>();
-    private static final Map<String, String> AI_RESPONSES;
+
+    private static final Map<String, String> RESPONSES = new HashMap<>();
 
     static {
-        Map<String, String> tempMap = new HashMap<>();
-        tempMap.put("날씨", getCurrentDate() + "은 맑은 날씨입니다.");
-        tempMap.put("오늘 날씨", "오늘은 맑은 날씨입니다.");
-        AI_RESPONSES = Collections.unmodifiableMap(tempMap);
+        RESPONSES.put("날씨", "무료 버전은 항상 맑은 날씨입니다.");
+        RESPONSES.put("오늘", getCurrentDate() + " 윈도우 오른쪽 아래엔 달력기능이 있답니다.");
+        RESPONSES.put("하늘", "저녁 노을이 이쁘긴 합니다.");
+        RESPONSES.put("발표", "현제 4조와 함께하고 계십니다.");
+        RESPONSES.put("이해 했나요?", "대충 고양이 우는 이모티콘.");
+        RESPONSES.put("오늘의 추천 음악", "samsmith - midnight train");
+        RESPONSES.put("내일의 추천 음악", "bruno mars - 777");
     }
 
     private static String getCurrentDate() {
@@ -253,9 +257,53 @@ public class ChatServer {
             }
         }
 
+        public static String generateResponse(String input) {
+            List<String> tokens = Arrays.asList(input.toLowerCase().split(" "));
+            Map<String, Integer> similarityScores = new HashMap<>();
+            for (String key : RESPONSES.keySet()) {
+                int score = calculateSimilarity(tokens, key);
+                similarityScores.put(key, score);
+            }
+            String bestResponse = findBestResponse(similarityScores);
+            return RESPONSES.get(bestResponse);
+        }
+
+        private static int calculateSimilarity(List<String> tokens, String responseKey) {
+            int score = 0;
+            for (String token : tokens) {
+                if (responseKey.toLowerCase().contains(token)) {
+                    score++;
+                }
+            }
+            return score;
+        }
+
+        private static String findBestResponse(Map<String, Integer> similarityScores) {
+            Random random = new Random();
+            String bestResponse = "";
+            int maxScore = Integer.MIN_VALUE;
+            for (Map.Entry<String, Integer> entry : similarityScores.entrySet()) {
+                int score = entry.getValue();
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestResponse = entry.getKey();
+                } else if (score == maxScore) {
+                    if (random.nextBoolean()) {
+                        bestResponse = entry.getKey();
+                    }
+                }
+            }
+            return bestResponse;
+        }
+
         private void handleAIResponse(String message) {
-            String response = AI_RESPONSES.getOrDefault(message, "죄송해요, 이해하지 못했어요.");
-            out.println(response);
+            String response = generateResponse(message);
+
+            if (roomNumber != -1) {
+                broadcastToRoom(response, roomNumber);
+            } else {
+                out.println(response);
+            }
         }
     }
 }
