@@ -15,7 +15,7 @@ public class FileReadWriteApp {
     }
 
     static class FileReaderTask implements Runnable {
-        private final String fileName = "input.txt";
+        private final String fileName = "thisisjava/src/input.txt";
 
         @Override
         public void run() {
@@ -31,7 +31,7 @@ public class FileReadWriteApp {
     }
 
     static class FileWriterTask implements Runnable {
-        private final String fileName = "output.txt";
+        private final String fileName = "thisisjava/src/output.txt";
 
         @Override
         public void run() {
