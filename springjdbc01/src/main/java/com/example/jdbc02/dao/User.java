@@ -1,12 +1,10 @@
-package com.example.springjdbc01;
-
+package com.example.jdbc02.dao;
 
 import lombok.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Setter
 public class User {
     private Long id;
