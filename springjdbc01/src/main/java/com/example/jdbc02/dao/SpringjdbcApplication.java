@@ -15,6 +15,7 @@ public class SpringjdbcApplication {
     public CommandLineRunner demo(UserDao userDao){
         return args -> {
             userDao.insertUser(new User(null,"park","aw@naver.com"));
+            userDao.findAllUsers().forEach(user -> System.out.println(user.getName() + ": " + user.getEmail()));
         };
     }
 }
