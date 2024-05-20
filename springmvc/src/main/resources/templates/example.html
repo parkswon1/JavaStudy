@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Thymeleaf Example</title>
+</head>
+<body>
+<h1>Thymeleaf Example</h1>
+<!-- 변수 표현식 -->
+<p>Username: <span th:text="${username}"></span></p>
+<!-- 선택 변수 표현식 -->
+<div th:object="${lang}">
+  <p>
+    Languages: <span th:text="*{[0]}"></span>,
+    <span th:text="*{[1]}"></span>, <span th:text="*{[2]}"></span>
+  </p>
+</div>
+<div th:if="${isAdmin}">
+  <p>You are an admin.</p>
+</div>
+<div th:unless="${isAdmin}">
+  <p>You are not an admin.</p>
+</div>
+<a th:href="@{/welcome}">Logout</a>
+<p th:text="#{welcome.message}"></p>
+</body>
+</html>

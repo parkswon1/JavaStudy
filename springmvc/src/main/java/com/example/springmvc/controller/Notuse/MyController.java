@@ -1,4 +1,4 @@
-package com.example.springmvc.controller;
+package com.example.springmvc.controller.Notuse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

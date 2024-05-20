@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+    <h1 th:text="${welcomeMessage}">Welcome to our website!</h1>
+        <ul>
+            <li th:each="item : ${items}" th:text="${item.name}">Item Name</li>
+        </ul>
+    <footer th:include="common/footer :: footer">Footer content</footer>
+</body>
+</html>
