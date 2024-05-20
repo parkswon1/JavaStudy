@@ -2,6 +2,8 @@ package com.example.springmvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MyController {
@@ -18,5 +20,13 @@ public class MyController {
     @GetMapping("/contact")
     public String contact(){
         return "contact";
+    }
+
+    @GetMapping("/greeting")
+    public ModelAndView greet(
+            @RequestParam(name = "name", required = false, defaultValue = "Wd") String name){
+        ModelAndView mav = new ModelAndView("greeting");
+        mav.addObject("name", name);
+        return mav;
     }
 }
