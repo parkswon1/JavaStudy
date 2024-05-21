@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+</head>
+<body>
+  <h1>List Example</h1>
+  <ul>
+    <li
+      th:each = "item, stat : ${item}"
+      th:if="${stat.index >= 2 and stat.index < 7}"
+      th:text="${item}">
+    </li>
+  </ul>
+</body>
+</html>

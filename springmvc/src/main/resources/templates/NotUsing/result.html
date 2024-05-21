@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+</head>
+<body>
+<h1>Form Submission Result</h1>
+<p>Username: <span th:text="${userForm.username}"></span></p>
+<p>Password: <span th:text="${userForm.password}"></span></p>
+<a th:href="@{/form}">Go Back to Form</a>
+</body>
+</html>
