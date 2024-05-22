@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visit Counter</title>
+</head>
+<body>
+<h1>Welcome to our site!</h1>
+<p>
+    You have visited this page <span th:text="${visitCount}"></span> times.
+    YourID <span th:text="${sessionID}"></span>
+    Your JSESSIONID Cookie: <span th:text="${jsessionIdCookie}"></span>
+</p>
+<a th:href="@{/resetVisit1}">1Reset Count</a>
+<a th:href="@{/resetVisit2}">2delet Count</a>
+<a th:href="@{/removeAttrivute}">remove Count</a>
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.example.springmvc.controller.use;
+package com.example.springmvc.controller.Notuse;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
