@@ -39,7 +39,7 @@ public class SessionController {
 
     @GetMapping("/resetVisit2")
     public String resetVisit2(HttpSession session) {
-        session.invalidate(); // 세션 무효화
+        session.invalidate();
         return "redirect:/visit2";
     }
 

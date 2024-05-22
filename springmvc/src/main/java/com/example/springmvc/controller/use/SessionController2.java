@@ -29,7 +29,7 @@ public class SessionController2 {
 
     @GetMapping("/resetVisit1")
     public String resetVisit1(SessionStatus status) {
-        status.setComplete(); // 세션 초기화
+        status.setComplete();
         return "redirect:/visit2";
     }
 }
