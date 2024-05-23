@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>WriteForm</title>
+</head>
+<h1>게시글 작성</h1>
+<form th:action = "@{/write}" method = "post" th:object="${board}">
+    <label for = "name">Name :</label>
+    <input type = "text" id = "name" th:field="*{name}" required>
+    <label for = "password">Password :</label>
+    <input type = "text" id = "password" th:field="*{password}" required>
+    <label for = "title">Title :</label>
+    <input type = "text" id = "title" th:field="*{title}" required>
+    <label for = "content">Content :</label>
+    <input type = "text" id = "content" th:field="*{content}">
+    <input type="submit" value="게시글 등록">
+</form>
+<body>
+
+</body>
+</html>

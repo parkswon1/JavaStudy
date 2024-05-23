@@ -8,9 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,5 +32,18 @@ public class BoardController {
         Board board = boardService.findById(id);
         model.addAttribute(board);
         return "view";
+    }
+
+    @GetMapping("/write")
+    public String writeform(Model model){
+        model.addAttribute("board", new Board());
+        return "writeform";
+    }
+
+    @PostMapping("/write")
+    public String saveBoard(@ModelAttribute Board board, RedirectAttributes redirectAttribute){
+        boardService.save(board);
+        redirectAttribute.addFlashAttribute("message","게시판 등록 성공!");
+        return "redirect:/list";
     }
 }

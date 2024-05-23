@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -21,5 +23,12 @@ public class BoardService {
 
     public Board findById(Long id){
         return boardRepository.findById(id).orElse(null);
+    }
+
+    public Board save(Board board){
+        LocalDateTime now = LocalDateTime.now();
+        board.setCreated_at(now);
+        board.setUpdated_at(now );
+        return boardRepository.save(board);
     }
 }
