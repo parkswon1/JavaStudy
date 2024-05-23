@@ -17,7 +17,7 @@
     </div>
 
     <a th:href="@{/edit/{id}(id = ${board.id})}">게시판 수정</a>
-    <a th:href="@{/delete/{id}(id = ${board.id})}">게시판 삭제</a>
+    <a th:href="@{/deleteform/{id}(id = ${board.id})}">게시판 삭제</a>
     <div th:if="${message}" th:text="${message}"></div>
 </body>
 </html>

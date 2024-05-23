@@ -46,4 +46,28 @@ public class BoardController {
         redirectAttribute.addFlashAttribute("message","게시판 등록 성공!");
         return "redirect:/list";
     }
+
+    @GetMapping("/deleteform/{id}")
+    public String deleteBoard(@PathVariable Long id, Model model){
+        Board board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "deletedform";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String verifyPassword(@PathVariable Long id, @RequestParam String password, RedirectAttributes redirectAttributes){
+        Integer flag = boardService.verifyPassword(id, password);
+        System.out.println(flag);
+        if (flag == 1){
+            boardService.deleteById(id);
+            redirectAttributes.addFlashAttribute("message", "삭제 완료");
+            return "redirect:/list";
+        } else if (flag == 0) {
+            redirectAttributes.addFlashAttribute("message", "비밀번호가 틀립니다.");
+            return "redirect:/deleteform/{id}";
+        }else{
+            redirectAttributes.addFlashAttribute("message", "게시글이 이미 삭제됐거나 없습니다.");
+            return "redirect:/list";
+        }
+    }
 }

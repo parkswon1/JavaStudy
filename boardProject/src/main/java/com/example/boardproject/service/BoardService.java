@@ -18,11 +18,15 @@ public class BoardService {
     public Page<Board> findPaginated(Pageable pageable){
         Pageable sortedByDescId = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
                 Sort.by(Sort.Direction.DESC, "created_at", "updated_at"));
-        return boardRepository.findAll(sortedByDescId);
+        Page<Board> boards = boardRepository.findAll(sortedByDescId);
+        boards.forEach(board -> board.setPassword(null));
+        return boards;
     }
 
     public Board findById(Long id){
-        return boardRepository.findById(id).orElse(null);
+        Board board = boardRepository.findById(id).orElse(null);
+        board.setPassword(null);
+        return board;
     }
 
     public Board save(Board board){
@@ -30,5 +34,22 @@ public class BoardService {
         board.setCreated_at(now);
         board.setUpdated_at(now );
         return boardRepository.save(board);
+    }
+
+    public Integer verifyPassword(Long id, String password){
+        Board board = boardRepository.findById(id).orElse(null);
+
+        if (board == null){
+            return 2;
+        }
+        if (board.getPassword().equals(password)){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public void deleteById(Long id){
+        boardRepository.deleteById(id);
     }
 }

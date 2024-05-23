@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+<h2 th:text = "${board.title}">제목</h2>
+<div>
+    <p>Name: <span th:text="${board.name}"></span></p>
+    <p>Content: <span th:text="${board.content}"></span></p>
+    <p>Created At: <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
+    <p>Modified At:
+        <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        <span th:if="${board.updated_at == null}"></span>
+    </p>
+</div>
+<form th:action = "@{/delete/{id}(id = ${board.id})}" method = "post" th:object="${board}">
+    <label for = "password"> 비밀번호 확인</label>
+    <input type = "text" id = "password" th:field="*{password}" required>
+    <input type="submit" value="삭제">
+</form>
+<div th:if="${message}" th:text="${message}"></div>
+</body>
+</html>
