@@ -1,8 +1,6 @@
 package com.example.boardproject.domain;
 
-import com.mysql.cj.jdbc.result.UpdatableResultSet;
 import lombok.*;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
@@ -20,6 +18,6 @@ public class Board {
     private String title;
     private String password;
     private String content;
-    private LocalDateTime create_at;
+    private LocalDateTime created_at;
     private LocalDateTime updated_at;
 }
