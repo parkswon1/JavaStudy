@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>친구 등록</h1>
-<form th:action = "@{/friends/update/{id}(id = ${friend.id})}" method = "post" th:object="${friend}">
+<form th:action = "@{/friends/edit/{id}(id = ${friend.id})}" method = "post" th:object="${friend}">
     <label for = "name">Name :</label>
     <input type = "text" id = "name" th:field="*{name}" required>
     <label for = "email">Email :</label>
