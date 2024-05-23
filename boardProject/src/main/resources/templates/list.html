@@ -19,10 +19,10 @@
     <tr th:each="board : ${boards}">
         <td th:text="${board.id}">1</td>
         <td>
-            <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.title}"></a>
+            <a th:href="@{/view/{id}(id=${board.id})}" th:text="${board.title}"></a>
         </td>
         <td>
-            <a th:href="@{/boards/{id}(id=${board.id})}" th:text="${board.name}"></a>
+            <a th:href="@{/view/{id}(id=${board.id})}" th:text="${board.name}"></a>
         </td>
         <td th:text="${#temporals.format(board.created_at, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></td>

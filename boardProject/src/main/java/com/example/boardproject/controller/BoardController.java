@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -25,5 +26,12 @@ public class BoardController {
         model.addAttribute("currentPage", page);
 
         return "list";
+    }
+
+    @GetMapping("/view/{id}")
+    public String findById(@PathVariable Long id, Model model){
+        Board board = boardService.findById(id);
+        model.addAttribute(board);
+        return "view";
     }
 }

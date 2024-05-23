@@ -18,4 +18,8 @@ public class BoardService {
                 Sort.by(Sort.Direction.DESC, "created_at", "updated_at"));
         return boardRepository.findAll(sortedByDescId);
     }
+
+    public Board findById(Long id){
+        return boardRepository.findById(id).orElse(null);
+    }
 }

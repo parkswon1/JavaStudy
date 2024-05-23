@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+    <h2 th:text = "${board.title}">제목</h2>
+    <div>
+        <p>Name: <span th:text="${board.name}"></span></p>
+        <p>Content: <span th:text="${board.content}"></span></p>
+        <p>Created At: <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
+        <p>Modified At:
+            <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+            <span th:if="${board.updated_at == null}"></span>
+        </p>
+    </div>
+
+    <a th:href="@{/edit/{id}(id = ${board.id})}">게시판 수정</a>
+    <a th:href="@{/delete/{id}(id = ${board.id})}">게시판 삭제</a>
+    <div th:if="${message}" th:text="${message}"></div>
+</body>
+</html>
