@@ -3,30 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>View</title>
+    <link rel="stylesheet" th:href="@{/css/updateform.css}">
 </head>
 <body>
-<h2 th:text = "${board.title}">제목</h2>
-<div>
-    <p>Name: <span th:text="${board.name}"></span></p>
-    <p>Content: <span th:text="${board.content}"></span></p>
-    <p>Created At: <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
-    <p>Modified At:
-        <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
-        <span th:if="${board.updated_at == null}"></span>
-    </p>
+<div class="container">
+    <div class="box">
+        <form th:action="@{/update/{id}(id=${board.id})}" method="post" th:object="${board}">
+            <div class="card">
+                <div class="main-content">
+                    <input class="heading" type="text" id="title" th:field="*{title}" required><br>
+                    <div class="header">
+                        <span>Created Date</span>
+                        <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span>
+                        <input type="hidden" id="created_at" th:field="*{created_at}">
+                    </div>
+                    <div class="header">
+                        <span>Modified Date</span>
+                        <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <span th:if="${board.updated_at == null}"></span>
+                    </div>
+                    <input class="footer" type="text" id="name" th:field="*{name}" required><br>
+                    <div class="content">
+                        <textarea id="content" rows="4" cols="50" th:field="*{content}" required></textarea><br>
+                    </div>
+                </div>
+                <div class="pamo">
+                    <input placeholder="password" type="text" name="text" class="custom-input" id="password" th:field="*{password}" required>
+                    <button type="submit" class="delete-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span>Modify</span>
+                    </button>
+                    <div th:if="${message}" th:text="${message}"></div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
-<form th:action = "@{/update/{id}(id = ${board.id})}" method = "post" th:object="${board}">
-    <label for = "title">Title :</label>
-    <input type = "text" id = "title" th:field="*{title}" required>
-    <label for = "name">Name :</label>
-    <input type = "text" id = "name" th:field="*{name}" required>
-    <label for = "content">context :</label>
-    <input type = "text" id = "content" th:field="*{content}" required>
-    <label for = "password"> 비밀번호 확인</label>
-    <input type = "text" id = "password" th:field="*{password}" required>
-    <input type="hidden" id="created_at" th:field="*{created_at}">
-    <input type="submit" value="변경">
-</form>
-<div th:if="${message}" th:text="${message}"></div>
 </body>
 </html>

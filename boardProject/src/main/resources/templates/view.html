@@ -15,7 +15,6 @@
             <span th:if="${board.updated_at == null}"></span>
         </p>
     </div>
-
     <a th:href="@{/updateform/{id}(id = ${board.id})}">게시판 수정</a>
     <a th:href="@{/deleteform/{id}(id = ${board.id})}">게시판 삭제</a>
     <div th:if="${message}" th:text="${message}"></div>
