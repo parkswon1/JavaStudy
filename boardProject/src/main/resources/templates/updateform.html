@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>View</title>
+</head>
+<body>
+<h2 th:text = "${board.title}">제목</h2>
+<div>
+    <p>Name: <span th:text="${board.name}"></span></p>
+    <p>Content: <span th:text="${board.content}"></span></p>
+    <p>Created At: <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
+    <p>Modified At:
+        <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        <span th:if="${board.updated_at == null}"></span>
+    </p>
+</div>
+<form th:action = "@{/update/{id}(id = ${board.id})}" method = "post" th:object="${board}">
+    <label for = "title">Title :</label>
+    <input type = "text" id = "title" th:field="*{title}" required>
+    <label for = "name">Name :</label>
+    <input type = "text" id = "name" th:field="*{name}" required>
+    <label for = "content">context :</label>
+    <input type = "text" id = "content" th:field="*{content}" required>
+    <label for = "password"> 비밀번호 확인</label>
+    <input type = "text" id = "password" th:field="*{password}" required>
+    <input type="hidden" id="created_at" th:field="*{created_at}">
+    <input type="submit" value="변경">
+</form>
+<div th:if="${message}" th:text="${message}"></div>
+</body>
+</html>

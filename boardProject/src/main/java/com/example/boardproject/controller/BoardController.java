@@ -55,9 +55,8 @@ public class BoardController {
     }
 
     @PostMapping("/delete/{id}")
-    public String verifyPassword(@PathVariable Long id, @RequestParam String password, RedirectAttributes redirectAttributes){
+    public String verifyPasswordAndDelete(@PathVariable Long id, @RequestParam String password, RedirectAttributes redirectAttributes){
         Integer flag = boardService.verifyPassword(id, password);
-        System.out.println(flag);
         if (flag == 1){
             boardService.deleteById(id);
             redirectAttributes.addFlashAttribute("message", "삭제 완료");
@@ -67,6 +66,30 @@ public class BoardController {
             return "redirect:/deleteform/{id}";
         }else{
             redirectAttributes.addFlashAttribute("message", "게시글이 이미 삭제됐거나 없습니다.");
+            return "redirect:/list";
+        }
+    }
+
+    @GetMapping("/updateform/{id}")
+    public String updateBoard(@PathVariable Long id, Model model){
+        Board board = boardService.findById(id);
+        model.addAttribute("board", board);
+        return "updateform";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute Board board, RedirectAttributes redirectAttributes){
+        Integer flag = boardService.verifyPassword(id, board.getPassword());
+        if (flag == 1){
+            board.setId(id);
+            boardService.update(board);
+            redirectAttributes.addFlashAttribute("message", "변경 완료");
+            return "redirect:/list";
+        } else if (flag == 0) {
+            redirectAttributes.addFlashAttribute("message", "비밀번호가 틀립니다.");
+            return "redirect:/updateform/{id}";
+        }else{
+            redirectAttributes.addFlashAttribute("message", "게시글이 삭제됐거나 없습니다.");
             return "redirect:/list";
         }
     }

@@ -17,7 +17,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     public Page<Board> findPaginated(Pageable pageable){
         Pageable sortedByDescId = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, "created_at", "updated_at"));
+                Sort.by(Sort.Direction.DESC, "updated_at", "created_at"));
         Page<Board> boards = boardRepository.findAll(sortedByDescId);
         boards.forEach(board -> board.setPassword(null));
         return boards;
@@ -32,6 +32,12 @@ public class BoardService {
     public Board save(Board board){
         LocalDateTime now = LocalDateTime.now();
         board.setCreated_at(now);
+        board.setUpdated_at(now );
+        return boardRepository.save(board);
+    }
+
+    public Board update(Board board){
+        LocalDateTime now = LocalDateTime.now();
         board.setUpdated_at(now );
         return boardRepository.save(board);
     }

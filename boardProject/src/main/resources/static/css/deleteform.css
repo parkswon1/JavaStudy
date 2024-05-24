@@ -1,0 +1,74 @@
+/* 전체 배경색 설정 */
+body {
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+}
+
+/* 박스 스타일 */
+.box {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px; /* 넓이를 크게 조정 */
+}
+
+/* 제목 스타일 */
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+/* 게시글 내용 스타일 */
+.container {
+    margin-top: 20px;
+}
+
+/* 이름 스타일 */
+.name {
+    float: left; /* 왼쪽으로 정렬 */
+}
+
+/* 날짜 스타일 */
+.date {
+    float: right; /* 오른쪽으로 정렬 */
+}
+
+/* 텍스트 스타일 */
+p {
+    color: #555;
+    clear: both; /* float 해제 */
+}
+
+/* 입력란 스타일 */
+input[type="text"] {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: calc(100% - 22px);
+}
+
+/* 삭제 버튼 스타일 */
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 삭제 버튼 호버 효과 */
+input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* 메시지 스타일 */
+.message {
+    text-align: center;
+    margin-top: 10px;
+    color: #555;
+}
