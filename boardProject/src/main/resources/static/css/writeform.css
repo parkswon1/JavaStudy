@@ -1,0 +1,236 @@
+button {
+    transform: rotate(-25deg) skew(25deg);
+    transform-style: preserve-3d;
+    position: relative;
+    list-style: none;
+    width: 100px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    float: right;
+    cursor: pointer;
+}
+
+button:before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: -5px;
+    width: 100%;
+    height: 10px;
+    background: #2a2a2a;
+    transform: skewX(-41deg);
+}
+
+button:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: -9px;
+    width: 9px;
+    height: 100%;
+    background: #2a2a2a;
+    transform: skewY(-49deg);
+}
+
+button span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #2a2a2a;
+    color: #fff;
+    font-size: 25px;
+    transition: 1.1s ease-out;
+}
+
+button:hover span {
+    z-index: 1000;
+    transition: .3s;
+    color: #fff;
+}
+
+button:hover span:nth-child(5) {
+    transform: translate(40px, -40px);
+    opacity: 1;
+}
+
+button:hover span:nth-child(4) {
+    transform: translate(30px, -30px);
+    opacity: .8;
+}
+
+button:hover span:nth-child(3) {
+    transform: translate(20px, -20px);
+    opacity: .6;
+}
+
+button:hover span:nth-child(2) {
+    transform: translate(10px, -10px);
+    opacity: .4;
+}
+
+button:hover span:nth-child(1) {
+    transform: translate(0px, 0px);
+    opacity: .2;
+}
+
+button:active span:nth-child(5) {
+    transform: translate(20px, -20px);
+    opacity: 1;
+}
+
+button:active span:nth-child(4) {
+    transform: translate(15px, -15px);
+}
+
+button:active span:nth-child(3) {
+    transform: translate(10px, -10px);
+}
+
+button:active span:nth-child(2) {
+    transform: translate(5px, -5px);
+}
+
+button:active span:nth-child(1) {
+    transform: translate(0px, 0px);
+}
+
+button:nth-child(1):hover span {
+    background: #52E19F;
+}
+
+.card {
+    width: 500px;
+    height: 500px;
+    padding: 20px;
+    color: white;
+    background: linear-gradient(#212121, #212121) padding-box,
+    linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transform-origin: right bottom;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card .main-content {
+    flex: 1;
+}
+
+.card .header span:first-child {
+    font-weight: 600;
+    color: #717171;
+    margin-right: 4px;
+}
+
+.card .heading {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    margin: 0px 0 5px;
+    font-weight: 600;
+}
+
+.card .categories {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+
+.card .footer {
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    color: #717171;
+    margin-right: 4px;
+    font-size: 16px;
+}
+
+.card:hover {
+    rotate: 8deg;
+}
+
+.content textarea {
+    background-color: transparent; /* 배경 없애기 */
+    border: none; /* 테두리 없애기 */
+    padding: 0; /* 내부 여백 제거 */
+    resize: none; /* 크기 조절 불가능하게 설정 */
+    color: whitesmoke; /* 텍스트 색상 지정 */
+    font-size: 16px; /* 폰트 크기 지정 */
+    width: 100%; /* 너비 100%로 설정 */
+    height: 300px;
+    box-sizing: border-box; /* 패딩 포함한 크기 지정 */
+    border-radius: 4px; /* 테두리 모서리를 둥글게 만들기 */
+}
+
+.custom-input {
+    max-width: 190px;
+    background-color: #121212;
+    border: 0px solid;
+    box-shadow: 1px 1px 1px 1px rgb(131, 133, 129),
+    -1px -1px 1px 1px rgb(100, 100, 100);
+    border-radius: 4px;
+    padding: 10px;
+    color: whitesmoke;
+    caret-color: white;
+    outline: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-input:focus {
+    background-color: #222;
+    border: 1.5px solid rgb(189, 189, 189);
+}
+
+.custom-input:hover {
+    box-shadow: 1px 1px 1px 1px rgb(149, 151, 147),
+    -1px -1px 1px 1px rgb(124, 124, 124);
+}
+
+.custom-input:hover::placeholder {
+    color: #999999;
+}
+
+.custom-input::placeholder {
+    color: #727272;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #121212;
+    background: linear-gradient(
+            135deg,
+            #121212 25%,
+            #1a1a1a 25%,
+            #1a1a1a 50%,
+            #121212 50%,
+            #121212 75%,
+            #1a1a1a 75%,
+            #1a1a1a
+    );
+    background-size: 40px 40px;
+
+    animation: move 4s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 40px 40px;
+    }
+}

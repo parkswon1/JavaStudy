@@ -3,20 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>WriteForm</title>
+    <link rel="stylesheet" th:href="@{/css/writeform.css}">
 </head>
-<h1>게시글 작성</h1>
-<form th:action = "@{/write}" method = "post" th:object="${board}">
-    <label for = "name">Name :</label>
-    <input type = "text" id = "name" th:field="*{name}" required>
-    <label for = "password">Password :</label>
-    <input type = "text" id = "password" th:field="*{password}" required>
-    <label for = "title">Title :</label>
-    <input type = "text" id = "title" th:field="*{title}" required>
-    <label for = "content">Content :</label>
-    <input type = "text" id = "content" th:field="*{content}">
-    <input type="submit" value="게시글 등록">
-</form>
 <body>
+<div class="container">
+    <div class="box">
+        <form th:action = "@{/write}" method = "post" th:object="${board}" onsubmit="return checkEmptyFields()">
+            <div class="card">
+                <div class="main-content">
+                    <input class="heading" type="text" id="title" th:field="*{title}" placeholder="제목" required><br>
+                    <input class="footer" type="text" id="name" th:field="*{name}" placeholder="이름" required><br>
+                    <div class="content">
+                        <textarea id="content" rows="4" cols="50" th:field="*{content}" placeholder="내용" required></textarea><br>
+                    </div>
+                </div>
+                <div class="pamo">
+                    <input placeholder="password" type="text" name="text" class="custom-input" id="password" th:field="*{password}" required>
+                    <button type="submit" class="delete-button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span>Submit</span>
+                    </button>
+                    <div th:if="${message}" th:text="${message}"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function checkEmptyFields() {
+        var title = document.getElementById("title").value;
+        var name = document.getElementById("name").value;
+        var content = document.getElementById("content").value;
+
+        if (title.trim() === "") {
+            document.getElementById("title").value = "제목";
+        }
+        if (name.trim() === "") {
+            document.getElementById("name").value = "이름";
+        }
+        if (content.trim() === "") {
+            document.getElementById("content").value = "내용";
+        }
+
+        return true;
+    }
+</script>
 
 </body>
 </html>
