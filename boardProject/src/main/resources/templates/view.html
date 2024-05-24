@@ -2,21 +2,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>View</title>
+    <title>DetailView</title>
+    <link rel="stylesheet" th:href="@{/css/view.css}">
 </head>
 <body>
-    <h2 th:text = "${board.title}">제목</h2>
-    <div>
-        <p>Name: <span th:text="${board.name}"></span></p>
-        <p>Content: <span th:text="${board.content}"></span></p>
-        <p>Created At: <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span></p>
-        <p>Modified At:
-            <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
-            <span th:if="${board.updated_at == null}"></span>
-        </p>
+<div class="container">
+    <div class="box">
+        <div class="card">
+            <div class="main-content">
+                <p class="heading" th:text="${board.title}"></p>
+                <div class="header">
+                    <span>Created Date</span>
+                    <span th:text="${#temporals.format(board.created_at, 'yyyy/MM/dd HH:mm:ss')}"></span>
+                </div>
+                <div class="header">
+                    <span>Modified Date</span>
+                    <span th:if="${board.updated_at != null}" th:text="${#temporals.format(board.updated_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    <span th:if="${board.updated_at == null}"></span>
+                </div>
+                <div class="footer" th:text="by + ${board.name}">
+                </div>
+                <div class="content">
+                    <p th:text="${board.content}"></p>
+                </div>
+            </div>
+            <form th:action="@{/updateform/{id}(id = ${board.id})}" method="get">
+                <button type="submit" class="modify-button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span>Modify</span>
+                </button>
+            </form>
+            <form th:action="@{/deleteform/{id}(id=${board.id})}" method="get">
+                <button type="submit" class="delete-button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span>Delete</span>
+                </button>
+            </form>
+            <div th:if="${message}" th:text="${message}"></div>
+        </div>
     </div>
-    <a th:href="@{/updateform/{id}(id = ${board.id})}">게시판 수정</a>
-    <a th:href="@{/deleteform/{id}(id = ${board.id})}">게시판 삭제</a>
-    <div th:if="${message}" th:text="${message}"></div>
+</div>
 </body>
 </html>
