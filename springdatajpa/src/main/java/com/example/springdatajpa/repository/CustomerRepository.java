@@ -27,6 +27,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // 평균 나이보다 많은 고객 조회
     @Query("SELECT c FROM Customer c WHERE c.age > (SELECT AVG(c2.age) FROM Customer c2)")
     List<Customer> findCustomersOlderThanAverage();
-
-
 }
